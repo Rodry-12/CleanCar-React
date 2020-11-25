@@ -52,13 +52,19 @@ const EmpleadosView = () => {
     return (
         <Container>
             <p></p>
-            <TablaEmpleados empleados={emps}  handleDeleteEmpleados = {handleDeleteEmpleados}>
+            <TablaEmpleados 
+                empleados={emps} 
+                handleDeleteEmpleados = {handleDeleteEmpleados}>
             </TablaEmpleados>
             <p></p>
             <Button variant="success" size="lg" onClick = {handleOpenModal}>Crear empleado</Button>
             {
                 show &&
-                <CreateEmpleadosModal show = {show} handleClose = {handleClose}/>
+                <CreateEmpleadosModal 
+                show = {show} 
+                handleClose = {handleClose}
+                handleGetEmpleados = {handleGetEmpleados}
+                />
             }
         </Container>
 

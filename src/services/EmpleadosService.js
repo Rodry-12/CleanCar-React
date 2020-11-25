@@ -8,6 +8,10 @@ class EmpleadosService {
     delete (id) {
         return AxiosInstance.delete(`empleados/${id}`);
     }
+
+    post(empleado){
+        return AxiosInstance.post(`empleados`,empleado);
+    }
 }
 
 export default new EmpleadosService(); 
