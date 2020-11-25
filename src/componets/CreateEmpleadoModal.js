@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Modal, Form, FormGroup, Button, FormLabel, FormControl } from "react-bootstrap"
+import { Modal, Form, FormGroup, Button, FormLabel, FormControl, Alert } from "react-bootstrap"
 
 import AdministradoresServicie from "../services/AdministradoresService";
+import EmpleadosService from "../services/EmpleadosService";
 
 function CreateEmpleadosModal(props) {
 
-    const { show, handleClose } = props
+    const { show, handleClose, handleGetEmpleados} = props
 
     const [admin, setAdmin] = useState([])
 
@@ -30,6 +31,28 @@ function CreateEmpleadosModal(props) {
             console.log(error);
         }
     }
+
+    //Metodo para ingresar un empleado
+    const handleSaveEmpleado = async() =>{
+        try{
+            const repons = await EmpleadosService.post({
+                ccEmpleado: cedula,
+                nombre: nombre,
+                salario: salario,
+                idJefe: {
+                    cedulaAdmin: parseInt(jefe)
+                }
+            });
+            handleClose();
+            handleGetEmpleados();
+            console.log(repons);
+        }catch(error){
+            console.log(error);
+            alert("Error al guardar el empleado",error);
+        }
+    };
+
+    
 
 
     //Metodo para capturar los datos del empleado
@@ -116,9 +139,17 @@ function CreateEmpleadosModal(props) {
                 <Button variant="danger" onClick={handleClose}>
                     Cancelar
       </Button>
-                <Button variant="success">
-                    Crear
-      </Button>
+                <Button variant="success"
+                    disabled={
+                        !cedula ||
+                        !nombre ||
+                        !salario ||
+                        !jefe
+                    }
+                    onClick = {handleSaveEmpleado}
+                >
+                    Registrar
+                </Button>
             </Modal.Footer>
         </Modal>
     )

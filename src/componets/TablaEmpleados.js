@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button } from "react-bootstrap";
 
 function TablaEmpleados(props) {
-    const { empleados, handleDeleteEmpleados } = props 
+    const { empleados, handleDeleteEmpleados} = props 
 
     return (
         <Table striped bordered hover>
