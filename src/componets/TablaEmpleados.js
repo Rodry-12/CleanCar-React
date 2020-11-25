@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button } from "react-bootstrap";
 
 function TablaEmpleados(props) {
-    const { empleados, handleDeleteEmpleados } = props 
+    const { empleados, handleDeleteEmpleados} = props 
 
     return (
         <Table striped bordered hover>
@@ -25,7 +25,7 @@ function TablaEmpleados(props) {
                                 <Button size="sm" >Editar</Button>
                                 {' '}
                                 <Button variant="danger" size="sm"
-                                onclick = {() => handleDeleteEmpleados(empleados.ccEmpleado)} >Eliminar</Button>
+                                onClick = {() => handleDeleteEmpleados(empleados.ccEmpleado)} >Eliminar</Button>
                             </td>
                         </tr>
 

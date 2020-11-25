@@ -29,9 +29,9 @@ const EmpleadosView = () => {
     }
 
     //Metodo para eliminar los empleados 
-    const handleDeleteEmpleados = async (id) => {
+    const handleDeleteEmpleados =  async (id) => {
         try {
-            const resp = await EmpleadosService.delete(id);
+            const resp = await EmpleadosService.delete(id)
             console.log(resp)
             handleGetEmpleados()
         } catch (error) {
@@ -52,7 +52,7 @@ const EmpleadosView = () => {
     return (
         <Container>
             <p></p>
-            <TablaEmpleados empleados={emps} handleDeleteEmpleados = {handleDeleteEmpleados}>
+            <TablaEmpleados empleados={emps}  handleDeleteEmpleados = {handleDeleteEmpleados}>
             </TablaEmpleados>
             <p></p>
             <Button variant="success" size="lg" onClick = {handleOpenModal}>Crear empleado</Button>
