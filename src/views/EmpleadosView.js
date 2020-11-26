@@ -4,7 +4,7 @@ import EmpleadosService from "../services/EmpleadosService";
 
 import { Button, Container, ResponsiveEmbed } from "react-bootstrap";
 
-import CreateEmpleadosModal from "../componets/CreateEmpleadoModal";
+import EmpleadosModal from "../componets/EmpleadoModal";
 
 import TablaEmpleados from "../componets/TablaEmpleados";
 
@@ -14,10 +14,19 @@ const EmpleadosView = () => {
 
     const [show, setShow] = useState(false);
 
+    const [empleadoActualizar, setEmpleadoActualizar] = useState(null);
+
+    const [accion,setAccion] = useState(null);
+
     useEffect(() => {
         handleGetEmpleados()
     }, [])
 
+    const handleEmpleadoActualizar = async (empleado) => {
+        handleOpenModal("editar");
+        setEmpleadoActualizar(empleado)
+
+    }
     //Metodo para traer los empleados
     const handleGetEmpleados = async () => {
         try {
@@ -45,8 +54,9 @@ const EmpleadosView = () => {
     }
 
     //metodo para abrir
-    const handleOpenModal = () => {
+    const handleOpenModal = (accion) => {
         setShow(true);
+        setAccion(accion)
     }
 
     return (
@@ -54,16 +64,19 @@ const EmpleadosView = () => {
             <p></p>
             <TablaEmpleados 
                 empleados={emps} 
-                handleDeleteEmpleados = {handleDeleteEmpleados}>
+                handleDeleteEmpleados = {handleDeleteEmpleados}
+                handleEmpleadoActualizar = {handleEmpleadoActualizar}>
             </TablaEmpleados>
             <p></p>
-            <Button variant="success" size="lg" onClick = {handleOpenModal}>Crear empleado</Button>
+            <Button variant="success" size="lg" onClick = {() =>handleOpenModal ("crear")}>Crear empleado</Button>
             {
                 show &&
-                <CreateEmpleadosModal 
+                <EmpleadosModal 
                 show = {show} 
                 handleClose = {handleClose}
                 handleGetEmpleados = {handleGetEmpleados}
+                empleado = {empleadoActualizar}
+                accion = {accion}
                 />
             }
         </Container>

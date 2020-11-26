@@ -5,36 +5,61 @@ import { Modal, Form, FormGroup, Button, FormLabel, FormControl, Alert } from "r
 import AdministradoresServicie from "../services/AdministradoresService";
 import EmpleadosService from "../services/EmpleadosService";
 
-function CreateEmpleadosModal(props) {
+function EmpleadosModal(props) {
 
-    const { show, handleClose, handleGetEmpleados} = props
+    const { show, handleClose, handleGetEmpleados, empleado, accion } = props
 
     const [admin, setAdmin] = useState([])
 
-    useEffect (() =>{
-        handleGetAdmin()
-    },[])
-
     //Propiedades de los empleados 
-    const [cedula, setCedula] = useState(null);
-    const [nombre, setNombre] = useState(null);
-    const [salario, setSalario] = useState(null);
-    const [jefe, setJefe] = useState(null);
+    const [cedula, setCedula] = useState(accion == "editar" ? empleado.ccEmpleado: null);
+    const [nombre, setNombre] = useState(accion == "editar" ? empleado.nombre: null);
+    const [salario, setSalario] = useState(accion == "editar" ? empleado.salario: null);
+    const [jefe, setJefe] = useState(accion == "editar" ? empleado.idJefe: null);
+
+
+    useEffect(() => {
+        handleGetAdmin()
+    }, [])
+
+
+
 
     //Metodo para llamar los administradores
-    const handleGetAdmin = async () =>{
+    const handleGetAdmin = async () => {
         try {
-            const datos = await AdministradoresServicie.get(); 
+            const datos = await AdministradoresServicie.get();
             setAdmin(datos.data)
-            console.log(admin);
         } catch (error) {
             console.log(error);
         }
     }
 
+    
+    const handleUdapteEmpleado = async () => {
+        try {
+            const resp = await EmpleadosService.put(empleado.ccEmpleado,{
+                nombre: nombre,
+                salario: salario,
+                idJefe: {
+                    cedulaAdmin: parseInt(jefe)
+                }
+            });
+            alert("empleado actualizado");
+            handleClose();
+            handleGetEmpleados();
+            console.log(resp);
+        } catch (error) {
+            console.log(error);
+            alert("Error al actualizar empleado");
+        }
+
+    }
+    
+
     //Metodo para ingresar un empleado
-    const handleSaveEmpleado = async() =>{
-        try{
+    const handleSaveEmpleado = async () => {
+        try {
             const repons = await EmpleadosService.post({
                 ccEmpleado: cedula,
                 nombre: nombre,
@@ -46,14 +71,11 @@ function CreateEmpleadosModal(props) {
             handleClose();
             handleGetEmpleados();
             console.log(repons);
-        }catch(error){
+        } catch (error) {
             console.log(error);
-            alert("Error al guardar el empleado",error);
+            alert("Error al guardar el empleado");
         }
     };
-
-    
-
 
     //Metodo para capturar los datos del empleado
     const handleOnChange = (e) => {
@@ -66,6 +88,7 @@ function CreateEmpleadosModal(props) {
         switch (name) {
             case "cedula":
                 setCedula(value ? value : null);
+                console.log(cedula)
                 break;
             case "nombre":
                 setNombre(value ? value : null);
@@ -87,13 +110,14 @@ function CreateEmpleadosModal(props) {
     return (
         <Modal backdrop="static" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Crear Empleado</Modal.Title>
+                <Modal.Title>{accion == "editar"? "Editar empleado":"Crear empleado"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <FormGroup>
                         <FormLabel>Cedula Empleado</FormLabel>
                         <FormControl
+                            disabled = {accion == "editar"? true: false}
                             name="cedula"
                             onChange={handleOnChange}
                             value={cedula ? cedula : ""}
@@ -117,28 +141,26 @@ function CreateEmpleadosModal(props) {
                     </FormGroup>
                     <FormGroup>
                         <FormLabel>Jefe</FormLabel>
-                        <FormControl 
+                        <FormControl
                             as="select"
                             name="jefe"
                             onChange={handleOnChange}
-                            value={jefe ? jefe: ""}>
-                            <option value="">-SELECCIONE-</option>
+                            value={jefe ? jefe : ""}>
+                            <option value={accion == "editar" ? jefe.cedulaAdmin:""}> {accion == "editar" ? jefe.nombres:"-SELECCIONE-"}</option>
                             {
                                 admin
-                                && admin.map((admin, item) =>{
-                                return <option key ={item} value = {admin.cedulaAdmin}> {admin.nombres}</option>
+                                && admin.map((admin, item) => {
+                                    return <option key={item} value={admin.cedulaAdmin}> {admin.nombres}</option>
                                 })
                             }
                         </FormControl>
-
-
                     </FormGroup>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="danger" onClick={handleClose}>
                     Cancelar
-      </Button>
+                </Button>
                 <Button variant="success"
                     disabled={
                         !cedula ||
@@ -146,9 +168,9 @@ function CreateEmpleadosModal(props) {
                         !salario ||
                         !jefe
                     }
-                    onClick = {handleSaveEmpleado}
+                    onClick={accion == "editar" ?  handleUdapteEmpleado:handleSaveEmpleado}
                 >
-                    Registrar
+                    {accion == "editar" ? "Actualizar" : "Crear"}
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -156,4 +178,4 @@ function CreateEmpleadosModal(props) {
 
 }
 
-export default CreateEmpleadosModal;
+export default EmpleadosModal;

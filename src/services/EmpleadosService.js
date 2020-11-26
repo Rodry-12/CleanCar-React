@@ -12,6 +12,10 @@ class EmpleadosService {
     post(empleado){
         return AxiosInstance.post(`empleados`,empleado);
     }
+
+    put(id,empleado) {
+        return AxiosInstance.put(`empleados/${id}`,empleado);
+    }
 }
 
 export default new EmpleadosService(); 
