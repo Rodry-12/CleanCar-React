@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Modal, Form, FormGroup, Button, FormLabel, FormControl, Alert } from "react-bootstrap"
+import { Modal, Form, FormGroup, Button, FormLabel, FormControl} from "react-bootstrap"
 
 import AdministradoresServicie from "../services/AdministradoresService";
 import EmpleadosService from "../services/EmpleadosService";
