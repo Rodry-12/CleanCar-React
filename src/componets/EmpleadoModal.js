@@ -4,6 +4,7 @@ import { Modal, Form, FormGroup, Button, FormLabel, FormControl, Alert } from "r
 
 import AdministradoresServicie from "../services/AdministradoresService";
 import EmpleadosService from "../services/EmpleadosService";
+import Swal from 'sweetalert2'
 
 function EmpleadosModal(props) {
 
@@ -45,13 +46,17 @@ function EmpleadosModal(props) {
                     cedulaAdmin: parseInt(jefe)
                 }
             });
-            alert("empleado actualizado");
             handleClose();
             handleGetEmpleados();
             console.log(resp);
         } catch (error) {
             console.log(error);
-            alert("Error al actualizar empleado");
+            Swal.fire({
+                title:'Error',
+                icon:'error',
+                text: 'Se presento un problema al actualizar el empleado',
+                timer: 5000
+            })
         }
 
     }
@@ -73,7 +78,12 @@ function EmpleadosModal(props) {
             console.log(repons);
         } catch (error) {
             console.log(error);
-            alert("Error al guardar el empleado");
+            Swal.fire({
+                title:'Error',
+                icon:'error',
+                text: 'Se presento un error al guardar un empleado',
+                timer: 5000
+            })
         }
     };
 
