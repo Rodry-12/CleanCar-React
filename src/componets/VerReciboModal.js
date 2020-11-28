@@ -5,6 +5,7 @@ function VerReciboModal(props) {
     const { showVer, handleClose, recibo, handleGetRecibos } = props;
     useEffect(() => {
         handleGetRecibos();
+        console.log(recibo)
     }, [])
 
     return (
