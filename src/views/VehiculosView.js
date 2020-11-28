@@ -108,7 +108,7 @@ function VehiculosView() {
     return (
         <Container>
             <div style = {{margin:"5px"}}>
-              <Button variant="outline-success" size="lg" block onClick = {() =>handleOpenModal("crear")} >Crea un nuevo vehiculo</Button>
+              <Button variant="outline-primary" size="lg" block onClick = {() =>handleOpenModal("crear")} >Crea un nuevo vehiculo</Button>
               {
                   show
                   && <VehiculoModal 

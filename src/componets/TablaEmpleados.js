@@ -21,7 +21,7 @@ function TablaEmpleados(props) {
                             <td>{empleados.ccEmpleado}</td>
                             <td>{empleados.nombre}</td>
                             <td>{empleados.salario}</td>
-                            <td width="155px">
+                            <td width="160px">
                                 <Button size="sm" onClick = {() => handleEmpleadoActualizar(empleados)} >Editar</Button>
                                 {' '}
                                 <Button variant="danger" size="sm"

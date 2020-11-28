@@ -62,7 +62,7 @@ const EmpleadosView = () => {
                 icon: 'info',
                 text:'¿Esta Seguro de eliminar el empleado?',
                 showCancelButton:true,
-                confirmButtonText:'Si',
+                confirmButtonText:'Confirmar',
                 cancelButtonText:'Cancelar',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -99,7 +99,7 @@ const EmpleadosView = () => {
                 handleEmpleadoActualizar = {handleEmpleadoActualizar}>
             </TablaEmpleados>
             <p></p>
-            <Button variant="success" size="lg" onClick = {() =>handleOpenModal ("crear")}>Crear empleado</Button>
+            <Button color="rgb(3, 69, 92)"  size="lg" onClick = {() =>handleOpenModal ("crear")}>Crear empleado</Button>
             {
                 show &&
                 <EmpleadosModal 
