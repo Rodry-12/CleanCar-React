@@ -26,7 +26,6 @@ const EmpleadosView = () => {
     const handleEmpleadoActualizar = async (empleado) => {
         handleOpenModal("editar");
         setEmpleadoActualizar(empleado)
-
     }
     //Metodo para traer los empleados
     const handleGetEmpleados = async () => {
