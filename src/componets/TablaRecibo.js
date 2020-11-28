@@ -38,7 +38,7 @@ function TablaRecibo(props) {
                             <td>{recibos.idServico.tipoServicio}</td>
                             <td>{recibos.placa.placa}</td>
                             <td width="190px">
-                                <Button size="sm" onClick={handleVerOpenModal}> Ver Recibo </Button>
+                                <Button size="sm" onClick={handleVerOpenModal()}> Ver Recibo </Button>
                                 {
                                     showVer
                                     && <VerReciboModal
