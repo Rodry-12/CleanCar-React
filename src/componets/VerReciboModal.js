@@ -19,16 +19,16 @@ function VerReciboModal(props) {
                     <Card.Body>
                         <Card.Title style={{ textAlign: "center", fontSize: "40px" }} >{reciboAver.idServico.tipoServicio}</Card.Title>
                         <Card.Text style = {{textAlign: "center"}}>
-                            {reciboAver.total}
+                            Precio del servicio: ${reciboAver.total}
                         </Card.Text>
                         <Table striped bordered hover>
                             <tbody>
                                 <tr>
-                                    <th>Empleado</th>
+                                    <th>Encargado del servicio</th>
                                     <td>{reciboAver.cedulaEmp.nombre}</td>
                                 </tr>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>Nombre del vehiculo</th>
                                     <td>{reciboAver.placa.nombre}</td>
                                 </tr>
                                 <tr>
@@ -36,7 +36,7 @@ function VerReciboModal(props) {
                                     <td>{reciboAver.placa.placa}</td>
                                 </tr>
                                 <tr>
-                                    <th>Dueño</th>
+                                    <th>Cliente (Dueño del vehiculo)</th>
                                     <td>{reciboAver.placa.dueño.nombre}</td>
                                 </tr>
                                 <br></br>
