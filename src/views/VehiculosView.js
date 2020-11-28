@@ -141,7 +141,6 @@ function VehiculosView() {
 
     return (
         <Container>
-<<<<<<< HEAD
             <div style = {{margin:"5px"}}>
               <Button variant="outline-primary" size="lg" block onClick = {() =>handleOpenModal("crear")} >Crea un nuevo vehiculo</Button>
               {
@@ -154,21 +153,6 @@ function VehiculosView() {
                   accion = {accion} 
                   />
               }
-=======
-            <div style={{ marginTop: "20px" }}>
-                <Button variant="success" onClick={() => handleOpenModal("crear")} >Crea un nuevo vehiculo</Button>
-                {
-                    show ?
-                        <VehiculoModal
-                            show={show}
-                            handleClose={handleClose}
-                            handleGetVehiculos={handleGetVehiculos}
-                            vehiculo={vehiculoActualizar}
-                            accion={accion}
-                        /> : null
-
-                }
->>>>>>> develop
             </div>
             {handleRenderVehiculo()}
         </Container>
