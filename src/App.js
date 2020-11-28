@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <Navbar className="Nav-Bar"  expand="lg">
-        <Navbar.Brand className="logo" href="#home"><img src= {logo}/></Navbar.Brand>
+        <Navbar.Brand className="logo" href="/"><img src= {logo}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

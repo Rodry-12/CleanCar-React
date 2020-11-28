@@ -58,7 +58,7 @@ function VehiculosView() {
                 icon: 'info',
                 text: '¿Esta Seguro de eliminar el vehiculo?',
                 showCancelButton: true,
-                confirmButtonText: 'Si',
+                confirmButtonText: 'Confirmar',
                 cancelButtonText: 'Cancelar',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

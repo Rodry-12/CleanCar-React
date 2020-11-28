@@ -33,7 +33,7 @@ function VerReciboModal(props) {
                                 </tr>
                                 <tr>
                                     <th>Placa</th>
-                                    <td>{reciboAver.placa.placa}}</td>
+                                    <td>{reciboAver.placa.placa}</td>
                                 </tr>
                                 <tr>
                                     <th>Dueño</th>

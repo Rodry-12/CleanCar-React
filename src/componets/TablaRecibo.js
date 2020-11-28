@@ -26,7 +26,11 @@ function TablaRecibo(props) {
                             <td>{recibo.idServico.tipoServicio}</td>
                             <td>{recibo.placa.placa}</td>
                             <td width="190px">
+<<<<<<< HEAD
                                 <Button size="sm" onClick={()=>handleVerOpenModal(recibo)}> Ver Recibo </Button>
+=======
+                                <Button size="sm" onClick={handleVerOpenModal()}> Ver Recibo </Button>
+>>>>>>> Programing
                                 {
                                 }{'   '}
                                 <Button variant="danger" size="sm"
