@@ -1,33 +1,40 @@
-import React,{ useState, useEffect }  from "react";
+import React, { useState, useEffect } from "react";
 import ReciboModal from '../componets/ReciboModal';
-import {Container,Button } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import ReciboService from '../services/ReciboService'
 import Swal from 'sweetalert2'
 
 import TablaRecibo from "../componets/TablaRecibo";
-function ReciboView () {
+
+import VerReciboModal from '../componets/VerReciboModal';
+
+
+function ReciboView() {
 
     const [show, setShow] = useState(false);
     const [recb, setRecibo] = useState([]);
+    const [showVer, setShowVer] = useState(false);
 
-    useEffect(()=>{
+    const [reciboAver, setReciboAver] = useState(null);
+
+    useEffect(() => {
         handleGetRecibos();
-    },[])
+    }, [])
 
     //Metodo delete Recibo
-    const handleDeleteRecibo =  async (id) => {
+    const handleDeleteRecibo = async (id) => {
         try {
             const resModal = await Swal.fire({
-                title:'Eliminar Recibo',
+                title: 'Eliminar Recibo',
                 icon: 'info',
-                text:'¿Esta Seguro de eliminar el Recibo?',
-                showCancelButton:true,
-                confirmButtonText:'Confirmar',
-                cancelButtonText:'Cancelar',
+                text: '¿Esta Seguro de eliminar el Recibo?',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
             });
-            if(!resModal.value){
+            if (!resModal.value) {
                 return;
             }
 
@@ -43,27 +50,35 @@ function ReciboView () {
     const handleGetRecibos = async () => {
         try {
             Swal.fire({
-                allowOutsideClick:false,
+                allowOutsideClick: false,
                 icon: 'info',
-                text:'Por favor espere...',
-                timer:10000
+                text: 'Por favor espere...',
+                timer: 10000
             });
 
             Swal.showLoading();
             const datos = await ReciboService.get();
-            setRecibo(datos.data)
-            console.log(datos.data)
+            setRecibo(datos.data);
             Swal.close();
         } catch (error) {
             console.log(error);
             Swal.close();
             Swal.fire({
-                title:'Error',
-                icon:'error',
+                title: 'Error',
+                icon: 'error',
                 text: 'Se presento un error al obtener los Recibos',
                 timer: 5000
             })
         }
+    }
+
+
+    const handleVerOpenModal = (recibo) => {
+        setReciboAver(recibo);
+        setShowVer(true);
+    }
+    const handleVerCloseModal = () => {
+        setShowVer(false);
     }
 
 
@@ -76,29 +91,38 @@ function ReciboView () {
     const handleOpenModal = () => {
         setShow(true);
     }
-   return (
+    return (
         <Container>
             <p></p>
-            <TablaRecibo 
-
+            <TablaRecibo
                 recibos={recb}
                 handleDeleteRecibo={handleDeleteRecibo}
-                handleGetRecibos={handleGetRecibos}>
+                handleGetRecibos={handleGetRecibos}
+                handleVerOpenModal={handleVerOpenModal}
+                >
             </TablaRecibo>
-                
-                
-            <Button variant="primary" size="lg" block onClick = {handleOpenModal}>Crear un Recibo</Button>
+            {
+                showVer
+                && <VerReciboModal
+                    showVer={showVer}
+                    handleVerCloseModal={handleVerCloseModal}
+                    reciboAver={reciboAver}>
+                </VerReciboModal>
+            }
+
+
+            <Button variant="primary" size="lg" block onClick={handleOpenModal}>Crear un Recibo</Button>
             {
                 show &&
-                <ReciboModal 
-                show = {show} 
-                handleClose = {handleClose}
+                <ReciboModal
+                    show={show}
+                    handleClose={handleClose}
                 />
             }
         </Container>
 
     );
-    
+
 
 }
 

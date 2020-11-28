@@ -1,22 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import VerReciboModal from '../componets/VerReciboModal'
 
 function TablaRecibo(props) {
 
-    const { recibos, handleDeleteRecibo, handleGetRecibos } = props
-
-    const [showVer, setShowVer] = useState(false);
-
-    //metodo para cerrar 
-    const handleClose = () => {
-        setShowVer(false);
-    }
-
-    //metodo para abrir
-    const handleVerOpenModal = () => {
-        setShowVer(true);
-    }
+    const { recibos, handleDeleteRecibo, handleVerOpenModal } = props
 
     return (
         <Table striped bordered hover>
@@ -31,25 +19,18 @@ function TablaRecibo(props) {
             </thead>
             <tbody>
                 {
-                    recibos.map((recibos, item) => (
+                    recibos.map((recibo, item) => (
                         <tr key={item}>
-                            <td>{recibos.total}</td>
-                            <td>{recibos.cedulaEmp.nombre}</td>
-                            <td>{recibos.idServico.tipoServicio}</td>
-                            <td>{recibos.placa.placa}</td>
+                            <td>{recibo.total}</td>
+                            <td>{recibo.cedulaEmp.nombre}</td>
+                            <td>{recibo.idServico.tipoServicio}</td>
+                            <td>{recibo.placa.placa}</td>
                             <td width="190px">
-                                <Button size="sm" onClick={handleVerOpenModal}> Ver Recibo </Button>
+                                <Button size="sm" onClick={()=>handleVerOpenModal(recibo)}> Ver Recibo </Button>
                                 {
-                                    showVer
-                                    && <VerReciboModal
-                                        showVer={showVer}
-                                        handleClose={handleClose}
-                                        recibo={recibos}
-                                        handleGetRecibos={handleGetRecibos}>
-                                    </VerReciboModal>
                                 }{'   '}
                                 <Button variant="danger" size="sm"
-                                    onClick={() => handleDeleteRecibo(recibos.codRecibo)} >Eliminar</Button>
+                                    onClick={() => handleDeleteRecibo(recibo.codRecibo)} >Eliminar</Button>
                             </td>
 
                         </tr>
