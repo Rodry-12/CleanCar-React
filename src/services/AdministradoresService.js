@@ -5,6 +5,10 @@ class AdministradoresService {
         return  AxiosInstance.get("administradores");
     }
 
+    auth(admin) {
+        return AxiosInstance.post(`administradores/login`,admin);
+    }
+
 }
 
 export default new AdministradoresService(); 

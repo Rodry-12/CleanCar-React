@@ -4,7 +4,10 @@ import Inicio from "./views/InicioView";
 import EmpleadosView from "./views/EmpleadosView";
 import VehiculosView from "./views/VehiculosView";
 import ReciboView from "./views/ReciboView";
+import loginView from "./views/LoginView";
 import logo from './img/logo.png'
+
+import './styles/index.css';
 
 import { Navbar, Nav,Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -40,6 +43,7 @@ function App() {
         <Route path="/empleados" component = {EmpleadosView}/>
         <Route path="/vehiculos" component = {VehiculosView}/>
         <Route path="/recibo" component = {ReciboView}/>
+        <Route path="/administradores/login" component = {loginView}/>
       </Switch>
 
 

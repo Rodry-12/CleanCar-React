@@ -1,0 +1,20 @@
+
+.containerLogin {
+
+    padding: 20px;
+  
+    margin-top: 150px;
+  
+    width: 500px;
+  
+  
+    border: 1px solid black;
+  
+  }
+
+.buttonLogin {
+
+    width: 90px;
+    margin-top: 10px;
+    margin-left: 365px;
+}
