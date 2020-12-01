@@ -7,7 +7,8 @@ body{
   background: rgb(3, 69, 92);
   font-size: 16px;
   font-weight: bold;
-  font-family: Comic Sans MS, cursive
+  font-family: Comic Sans MS, cursive;
+  display:flex
 }
 .logo img{
   width: 180px;

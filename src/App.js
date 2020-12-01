@@ -6,8 +6,9 @@ import VehiculosView from "./views/VehiculosView";
 import ReciboView from "./views/ReciboView";
 import logo from './img/logo.png'
 
-import { Navbar, Nav,Image } from "react-bootstrap";
+import { Navbar, Nav,Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 
 
 
@@ -24,6 +25,13 @@ function App() {
             <Link className="Links" to="/vehiculos">Vehiculos</Link>
             <Link className="Links" to="/recibo">Recibo</Link>
           </Nav>
+
+          <nav className="ml-auto">
+            <Link to="/administradores/login"><Button variant="primary">Entrar</Button></Link>
+            {' '}
+            <Link to="/"><Button variant="danger">Salir</Button></Link>
+            
+          </nav>
         </Navbar.Collapse>
       </Navbar>
 
