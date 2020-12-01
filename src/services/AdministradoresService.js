@@ -9,6 +9,10 @@ class AdministradoresService {
         return AxiosInstance.post(`administradores/login`,admin);
     }
 
+    create(admin) {
+        return AxiosInstance.post("administradores",admin)
+    }
+
 }
 
 export default new AdministradoresService(); 

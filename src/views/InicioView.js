@@ -1,9 +1,9 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import car from "../img/car.png";
-import car1Carousel from "../img/car2.png";
-import car2Carousel from "../img/car3.png";
-import car3Carousel from "../img/car4.PNG";
+import car from "../img/cleanCar1.png";
+import car1Carousel from "../img/cleanCar2.png";
+import car2Carousel from "../img/cleanCar3.png";
+import car3Carousel from "../img/cleanCar4.png";
 
 const Inicio = () => {
   return (
@@ -15,7 +15,7 @@ const Inicio = () => {
           slide="false"
           alt="First slide"
           width="100px"
-          height="550px"
+          height="645px"
           opacity="0.8"
         />
       </Carousel.Item>
@@ -25,7 +25,7 @@ const Inicio = () => {
           src={car1Carousel}
           alt="Third slide"
           width="100px"
-          height="550px"
+          height="645px"
           opacity="0.5"
         />
       </Carousel.Item>
@@ -35,7 +35,7 @@ const Inicio = () => {
           src={car2Carousel}
           alt="Third slide"
           width="100px"
-          height="550px"
+          height="645px"
           opacity="0.5"
         />
       </Carousel.Item>
@@ -45,7 +45,7 @@ const Inicio = () => {
           src={car3Carousel}
           alt="Third slide"
           width="100px"
-          height="550px"
+          height="645px"
           opacity="0.5"
         />
       </Carousel.Item>

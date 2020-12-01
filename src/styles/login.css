@@ -1,20 +1,58 @@
+.primaryContainer {
+    background-color: #4285f4ff;
+    margin: 0px;
+    height: 645px;
+}
 
 .containerLogin {
 
+    padding-top: 100px;
+}
+
+.containerRegister {
+
+    padding-top: 20px;
+}
+
+
+
+.formLogin {
+
     padding: 20px;
   
-    margin-top: 150px;
-  
     width: 500px;
-  
-  
+    
+    background-color: #E1F2F3;
+
     border: 1px solid black;
   
-  }
+}
+
+.formRegister{
+
+    padding: 20px;
+
+    background-color: #E1F2F3;
+
+    width: 600px;
+}
 
 .buttonLogin {
+    margin-top: 50px;
+}
 
-    width: 90px;
+.buttonRegisterLogin {
+
     margin-top: 10px;
-    margin-left: 365px;
+}
+
+
+.buttonGropRegister {
+    display: inline-block;
+
+    padding-top: 50px;
+}
+
+.buttonRegister {
+   margin-left: 350px;
 }

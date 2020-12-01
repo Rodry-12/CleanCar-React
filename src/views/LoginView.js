@@ -1,11 +1,13 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-import { Container, Form, FormGroup, FormControl, FormLabel, Button } from "react-bootstrap";
+import { Container, Form, FormGroup, FormControl, FormLabel, Button, ButtonGroup } from "react-bootstrap";
 
 import "../styles/login.css"
 import AdministradoresService from "../services/AdministradoresService";
 
 import Swal from 'sweetalert2';
+
+import RegistrarAdminForm from "../componets/RegistrarAdminForm";
 
 
 function LoginView() {
@@ -14,56 +16,65 @@ function LoginView() {
     const [cedulaAdmin, setCedulaAdmin] = useState(null);
     const [password, setPassword] = useState(null);
     const [errorCedula, setErrorCedula] = useState(null);
-    const [errorPass,setErrorPass] = useState(null);
+    const [errorPass, setErrorPass] = useState(null);
 
-    useEffect(()=>{
-        if(isNaN(cedulaAdmin)){
+    const [openRegister, setOpenRegister] = useState (false);
+
+    useEffect(() => {
+        //Validamos si la cedula es una cadena de numeros
+        if (isNaN(cedulaAdmin)) {
             setErrorCedula("Cedula debe ser un campo numerico");
-        }else{
+        } else {
             setErrorCedula(null);
             return;
         }
-    },[cedulaAdmin])
+    }, [cedulaAdmin])//variable a evaluar cuando cambie 
 
-    useEffect(()=>{
-        if(!password){
+    useEffect(() => {
+        //si la contraseña es nula no habrá error de contraseña, por lo tanto no se mostrará 
+        if (!password) {
             setErrorPass(null);
-            return;
+            return; //si la contraseña es nula no tiene nada más que hacer, por lo tanto nos salimos del metodo con 'return'
         }
-
-        if(password.length < 4){
+        //Validamos si el tamaño de la contraseña es mayor a 4 
+        if (password.length < 4) {
             setErrorPass('La contraseña debe contener 4 o mas caracteres');
-        }else{
+        } else {
             setErrorPass(null);
             return;
         }
-    },[password])
+    }, [password])//variable a evaluar cuando cambie 
 
-    
-    const handleAuth = async  () => {
+
+    const handleAuth = async () => {
         try {
             const resp = await AdministradoresService.auth({
                 cedulaAdmin,
                 password
             })
-            Swal.fire({
+            await Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Bienvenido',
+                title: `Bienvenido ${resp.data.nombres} ${resp.data.apellidos}`,
                 showConfirmButton: false,
-                timer: 2000
-              })
+                timer: 1500
+            })
             console.log(resp);
+            localStorage.setItem('token', JSON.stringify(resp.data))
+            window.location.reload();
+
         } catch (error) {
             Swal.fire({
-                title: "Cedula o contraseña incorrecta",
+                allowOutsideClick: false,
+                title: "Error",
                 icon: "error",
+                text: "Cedula o contraseña incorrecta"
             })
             console.log(error);
         }
 
     }
-    
+
 
     const handleOnChange = (e) => {
         const name = e.target.name;
@@ -72,45 +83,71 @@ function LoginView() {
         console.log(e.target);
 
         switch (name) {
-            case "cedula": 
-                setCedulaAdmin(value ? value: null);
-                break; 
+            case "cedula":
+                setCedulaAdmin(value ? value : null);
+                break;
             case "contraseña":
-                setPassword(value ? value: null);
-                break; 
+                setPassword(value ? value : null);
+                break;
         }
     }
 
+    //para habrir mi formulario 
+    const handleOpenRegister = () => {
+        setOpenRegister(true);
+    }
+
+    const handleCloseRegister = () => {
+        setOpenRegister(false);
+    }
+
     return (
-        <Container className="containerLogin">
-            <Form>
-                <FormGroup>
-                    <FormLabel>Cedula</FormLabel>
-                    <FormControl
+        <div className="primaryContainer">
+            {
+                !openRegister &&
+                <div className="containerLogin">
+                <Container className="formLogin">
+                    <Form>
+                        <FormGroup>
+                            <FormLabel>Cedula</FormLabel>
+                            <FormControl
 
-                        name ="cedula"
-                        placeholder="Cedula Administrador"
-                        onChange = {handleOnChange}
-                        value={cedulaAdmin ? cedulaAdmin : null}>
-                    </FormControl>
-                    <span className="text-danger" >{errorCedula}</span>
-                    <br></br>
-                </FormGroup>
-                <FormGroup>
-                    <FormLabel>Contraseña</FormLabel>
-                    <FormControl
-                        name ="contraseña"
-                        placeholder="Contraseña" type="password"
-                        onChange = {handleOnChange}
-                        value={password ? password : null}>
-                    </FormControl>
-                     <span className="text-danger" >{errorPass}</span>
-                </FormGroup>
+                                name="cedula"
+                                placeholder="Cedula Administrador"
+                                onChange={handleOnChange}
+                                value={cedulaAdmin ? cedulaAdmin : null}>
+                            </FormControl>
+                            <span className="text-danger" >{errorCedula}</span>
+                            <br></br>
+                        </FormGroup>
+                        <FormGroup>
+                            <FormLabel>Contraseña</FormLabel>
+                            <FormControl
+                                name="contraseña"
+                                placeholder="Contraseña" type="password"
+                                onChange={handleOnChange}
+                                value={password ? password : null}>
+                            </FormControl>
+                            <span className="text-danger" >{errorPass}</span>
+                        </FormGroup>
+                            <Button className="buttonLogin" onClick={handleAuth} block>Login</Button>
+                            <Button className="buttonRegisterLogin" size="sm" variant="outline-success" block onClick =  {handleOpenRegister} >Registrate!</Button>
+                    </Form>
+                </Container>
+            </div>
+            }
+            {
+                openRegister &&
+                <RegistrarAdminForm
+                    handleCloseRegister = {handleCloseRegister}
+                >
 
-                <Button className="buttonLogin" onClick = {handleAuth}>Login</Button>
-            </Form>
+                </RegistrarAdminForm>
+            }
+            
+        </div>
 
-        </Container>
+
     );
 
 }
