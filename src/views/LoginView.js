@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import { Container, Form, FormGroup, FormControl, FormLabel, Button } from "react-bootstrap";
 
@@ -13,6 +13,31 @@ function LoginView() {
 
     const [cedulaAdmin, setCedulaAdmin] = useState(null);
     const [password, setPassword] = useState(null);
+    const [errorCedula, setErrorCedula] = useState(null);
+    const [errorPass,setErrorPass] = useState(null);
+
+    useEffect(()=>{
+        if(isNaN(cedulaAdmin)){
+            setErrorCedula("Cedula debe ser un campo numerico");
+        }else{
+            setErrorCedula(null);
+            return;
+        }
+    },[cedulaAdmin])
+
+    useEffect(()=>{
+        if(!password){
+            setErrorPass(null);
+            return;
+        }
+
+        if(password.length < 4){
+            setErrorPass('La contraseña debe contener 4 o mas caracteres');
+        }else{
+            setErrorPass(null);
+            return;
+        }
+    },[password])
 
     
     const handleAuth = async  () => {
@@ -67,8 +92,9 @@ function LoginView() {
                         placeholder="Cedula Administrador"
                         onChange = {handleOnChange}
                         value={cedulaAdmin ? cedulaAdmin : null}>
-
                     </FormControl>
+                    <span className="text-danger" >{errorCedula}</span>
+                    <br></br>
                 </FormGroup>
                 <FormGroup>
                     <FormLabel>Contraseña</FormLabel>
@@ -78,6 +104,7 @@ function LoginView() {
                         onChange = {handleOnChange}
                         value={password ? password : null}>
                     </FormControl>
+                     <span className="text-danger" >{errorPass}</span>
                 </FormGroup>
 
                 <Button className="buttonLogin" onClick = {handleAuth}>Login</Button>
