@@ -92,11 +92,12 @@ function LoginView() {
         }
     }
 
-    //para habrir mi formulario 
+    //para habrir nuestro formulario 
     const handleOpenRegister = () => {
         setOpenRegister(true);
     }
 
+    //para cerrar nuestro formulario 
     const handleCloseRegister = () => {
         setOpenRegister(false);
     }

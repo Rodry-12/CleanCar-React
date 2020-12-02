@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 
 import "../styles/login.css";
 
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 
 function RegistrarAdminForm(props) {
 
-    const {handleCloseRegister} = props
+    const { handleCloseRegister } = props
 
     const [cedula, setCedula] = useState(null);
     const [nombres, setNombres] = useState(null);
@@ -19,10 +19,54 @@ function RegistrarAdminForm(props) {
     const [contraseña, setContraseña] = useState(null);
     const [confirmarContraseña, setConfirmarContraseña] = useState(null);
 
+    const [errorCedula, setErrorCedula] = useState(null);
+    const [errorPass, setErrorPass] = useState(null);
+    const [errorConfirmPass, setErrorConfirmPass] = useState(null);
+
+    useEffect(() => {
+        if (isNaN(cedula)) {
+            setErrorCedula("Cedula debe ser un campo numerico");
+        } else {
+            setErrorCedula(null);
+            return;
+        }
+    }, [cedula])
+
+    useEffect(() => {
+        if (!contraseña) {
+            setErrorPass(null);
+            return;
+        }
+
+        if (contraseña.length < 4) {
+            setErrorPass("La contraseña debe contener 4 o mas caracteres")
+        } else {
+            setErrorPass(null);
+            return;
+        }
+
+    }, [contraseña])
+
+    useEffect(() => {
+        if (!confirmarContraseña) {
+            setErrorConfirmPass(null);
+            return;
+        }
+
+        if (confirmarContraseña.length < 4) {
+            setErrorConfirmPass("La contraseña debe contener 4 o mas caracteres")
+        } else {
+            setErrorConfirmPass(null);
+            return;
+        }
+    }, [confirmarContraseña])
+
+
+
     const handleValidarPassword = async () => {
         if (contraseña === confirmarContraseña) {
             handleCreateAdmin();
-            return; 
+            return;
         }
         Swal.fire({
             allowOutsideClick: false,
@@ -74,14 +118,14 @@ function RegistrarAdminForm(props) {
                 setNombres(value ? value : null);
                 break;
             case "apellidos":
-                setApellidos(value ? value: null);
-                break; 
+                setApellidos(value ? value : null);
+                break;
             case "contraseña":
                 setContraseña(value ? value : null);
-                break; 
+                break;
             case "confirmarContraseña":
                 setConfirmarContraseña(value ? value : null);
-                break; 
+                break;
         }
     }
 
@@ -94,12 +138,12 @@ function RegistrarAdminForm(props) {
                         <FormControl
                             name="cedula"
                             placeholder="Cedula Administrador"
-                            onChange = {handleOnChange}
-                            value = {cedula? cedula:null}
-                            
-                            >
+                            onChange={handleOnChange}
+                            value={cedula ? cedula : null}
+
+                        >
                         </FormControl>
-                        <span className="text-danger" ></span>
+                        <span className="text-danger" >{errorCedula}</span>
                     </FormGroup>
 
                     <FormGroup>
@@ -107,11 +151,11 @@ function RegistrarAdminForm(props) {
                         <FormControl
                             name="nombres"
                             placeholder="Contraseña"
-                            onChange = {handleOnChange}
-                            value = {nombres? nombres:null}
-                            >
+                            onChange={handleOnChange}
+                            value={nombres ? nombres : null}
+                        >
                         </FormControl>
-                        <span className="text-danger" ></span>
+
                     </FormGroup>
 
 
@@ -119,13 +163,13 @@ function RegistrarAdminForm(props) {
                         <FormLabel>Apellidos</FormLabel>
                         <FormControl
                             name="apellidos"
-                            placeholder="Contraseña" 
-                            onChange = {handleOnChange}
-                            value = {apellidos? apellidos:null}
-                            >
+                            placeholder="Contraseña"
+                            onChange={handleOnChange}
+                            value={apellidos ? apellidos : null}
+                        >
 
                         </FormControl>
-                        <span className="text-danger" ></span>
+
                     </FormGroup>
 
 
@@ -134,12 +178,12 @@ function RegistrarAdminForm(props) {
                         <FormControl
                             name="contraseña"
                             placeholder="Contraseña"
-                            onChange = {handleOnChange}
+                            onChange={handleOnChange}
                             type="password"
-                            value = {contraseña? contraseña:null}
-                            >
+                            value={contraseña ? contraseña : null}
+                        >
                         </FormControl>
-                        <span className="text-danger" ></span>
+                        <span className="text-danger" >{errorPass}</span>
                     </FormGroup>
 
 
@@ -147,18 +191,18 @@ function RegistrarAdminForm(props) {
                         <FormLabel>Confirmar contraseña</FormLabel>
                         <FormControl
                             name="confirmarContraseña"
-                            placeholder="Contraseña" 
-                            onChange = {handleOnChange}
+                            placeholder="Contraseña"
+                            onChange={handleOnChange}
                             type="password"
-                            value = {confirmarContraseña ? confirmarContraseña:null}
-                            >
+                            value={confirmarContraseña ? confirmarContraseña : null}
+                        >
                         </FormControl>
-                        <span className="text-danger" ></span>
+                        <span className="text-danger" >{errorConfirmPass}</span>
                     </FormGroup>
 
-                    <div className = "buttonGropRegister">
-                        <Button className="buttonBack" variant="outline-danger" onClick = {handleCloseRegister}>Regresar</Button>
-                        <Button className="buttonRegister" variant ="success" onClick = {handleValidarPassword}>Registrarse</Button>
+                    <div className="buttonGropRegister">
+                        <Button className="buttonBack" variant="outline-danger" onClick={handleCloseRegister}>Regresar</Button>
+                        <Button className="buttonRegister" variant="success" onClick={handleValidarPassword}>Registrarse</Button>
                     </div>
 
                 </Form>
