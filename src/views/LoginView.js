@@ -61,7 +61,7 @@ function LoginView() {
             })
             console.log(resp);
             localStorage.setItem('token', JSON.stringify(resp.data))
-            window.location.reload();
+            window.location.pathname = "/";
 
         } catch (error) {
             Swal.fire({

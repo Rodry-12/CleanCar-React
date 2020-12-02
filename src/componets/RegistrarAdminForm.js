@@ -150,7 +150,7 @@ function RegistrarAdminForm(props) {
                         <FormLabel>Nombres</FormLabel>
                         <FormControl
                             name="nombres"
-                            placeholder="Contraseña"
+                            placeholder="Nombres"
                             onChange={handleOnChange}
                             value={nombres ? nombres : null}
                         >
@@ -163,7 +163,7 @@ function RegistrarAdminForm(props) {
                         <FormLabel>Apellidos</FormLabel>
                         <FormControl
                             name="apellidos"
-                            placeholder="Contraseña"
+                            placeholder="Apellidos"
                             onChange={handleOnChange}
                             value={apellidos ? apellidos : null}
                         >
@@ -202,7 +202,18 @@ function RegistrarAdminForm(props) {
 
                     <div className="buttonGropRegister">
                         <Button className="buttonBack" variant="outline-danger" onClick={handleCloseRegister}>Regresar</Button>
-                        <Button className="buttonRegister" variant="success" onClick={handleValidarPassword}>Registrarse</Button>
+                        <Button 
+                            className="buttonRegister" 
+                            variant="success" 
+                            onClick={handleValidarPassword}
+                            disabled={
+                                !cedula ||
+                                !nombres ||
+                                !apellidos ||
+                                !contraseña ||
+                                !confirmarContraseña 
+                            }
+                            >Registrarse</Button>
                     </div>
 
                 </Form>
